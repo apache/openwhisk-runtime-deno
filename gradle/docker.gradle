@@ -41,7 +41,7 @@ import groovy.time.*
 ext {
     dockerRegistry = project.hasProperty('dockerRegistry') ? dockerRegistry + '/' : ''
     dockerImageTag = project.hasProperty('dockerImageTag') ? dockerImageTag : 'latest'
-    dockerImagePrefix = project.hasProperty('dockerImagePrefix') ? dockerImagePrefix : 'whisk'
+    dockerImagePrefix = project.hasProperty('dockerImagePrefix') ? dockerImagePrefix : 'satyarohith'
     dockerTimeout = project.hasProperty('dockerTimeout') ? dockerTimeout.toInteger() : 840
     dockerRetries = project.hasProperty('dockerRetries') ? dockerRetries.toInteger() : 3
     dockerBinary = project.hasProperty('dockerBinary') ? [dockerBinary] : ['docker']

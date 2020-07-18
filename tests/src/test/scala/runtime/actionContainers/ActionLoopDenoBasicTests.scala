@@ -43,46 +43,52 @@ class ActionLoopPythonBasicTests extends BasicActionRunnerTests with WskActorSys
     |export default (args: unknown) => {
     |  return "this is not json"
     |};
-               """.stripMargin)
-
-  override val testEcho = TestConfig("""|import sys
-       |def main(args):
-       |   print("hello stdout", file=sys.stdout)
-       |   print("hello stderr", file=sys.stderr)
-       |   return args
     """.stripMargin)
 
-  override val testUnicode = TestConfig("""|def main(args):
-       |  delimiter = args['delimiter']
-       |  msg = u"%s ☃ %s" % (delimiter, delimiter)
-       |  print(msg)
+  override val testEcho = TestConfig("""
+    |export default (args: unknown) => {
+    |  console.error('hello stderr');
+    |  console.error('hello stdout');
+    |  return args;
+    |}
+    """.stripMargin)
+
+  override val testUnicode = TestConfig("""
+       |export default (args: unknown) => {
+       |  const msg = args.delimiter + " ☃ " + args.delimiter;
+       |  console.log(msg)
        |  return { "winter": msg }
+       |}
     """.stripMargin)
 
-  override val testEnv = TestConfig("""|import os
-       |def main(args):
-       |  env = os.environ
+  override val testEnv = TestConfig("""
+       |export default (args: unknown) => {
        |  return {
-       |    "api_host":      env["__OW_API_HOST"],
-       |    "api_key":       env["__OW_API_KEY"],
-       |    "namespace":     env["__OW_NAMESPACE"],
-       |    "activation_id": env["__OW_ACTIVATION_ID"],
-       |    "action_name":   env["__OW_ACTION_NAME"],
-       |    "deadline":      env["__OW_DEADLINE"]
+       |    "api_host":      Deno.env.get["__OW_API_HOST"],
+       |    "api_key":       Deno.env.get["__OW_API_KEY"],
+       |    "namespace":     Deno.env.get["__OW_NAMESPACE"],
+       |    "activation_id": Deno.env.get["__OW_ACTIVATION_ID"],
+       |    "action_name":   Deno.env.get["__OW_ACTION_NAME"],
+       |    "deadline":      Deno.env.get["__OW_DEADLINE"]
        |  }
+       |}
     """.stripMargin)
 
-  override val testInitCannotBeCalledMoreThanOnce = TestConfig(s"""|def main(args):
-        |  return args
+  override val testInitCannotBeCalledMoreThanOnce = TestConfig(s"""|export default (args: unknown) => {
+       |  return args
+       |}
     """.stripMargin)
 
   override val testEntryPointOtherThanMain = TestConfig(
-    s"""|def niam(args):
-        |   return args
+    s"""|export default (args: unknown) => {
+        |  return args
+        |}
     """.stripMargin,
     main = "niam")
 
-  override val testLargeInput = TestConfig(s"""|def main(args):
-        |  return args
+  override val testLargeInput = TestConfig(s"""
+       |export default (args: unknown) => {
+       |  return args
+       |}
     """.stripMargin)
 }

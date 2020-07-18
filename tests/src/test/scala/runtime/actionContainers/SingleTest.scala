@@ -34,11 +34,11 @@ class SingleTest extends ActionProxyContainerTestUtils with WskActorSystem {
   behavior of imageName
 
   val code =
-    """|import sys
-       |def main(args):
-       |   print("hello stdout", file=sys.stdout)
-       |   print("hello stderr", file=sys.stderr)
+    """|export default (args: unknown) => {
+       |   console.log("hello stdout");
+       |   console.error("hello stderr")
        |   return args
+       |}
        |""".stripMargin
 
   val data = JsonParser("""{"name":"Mike"}""")
