@@ -16,9 +16,9 @@
  */
 
 include 'tests'
-include 'deno1.1.2'
+include 'deno1.2.0'
 
-rootProject.name = 'runtime-actionlooop'
+rootProject.name = 'openwhisk-runtime-deno'
 
 gradle.ext.openwhisk = [
         version: '1.0.0-SNAPSHOT'

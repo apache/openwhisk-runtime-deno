@@ -66,17 +66,17 @@ msys=false
 darwin=false
 nonstop=false
 case "`uname`" in
-  CYGWIN* )
-    cygwin=true
+    CYGWIN* )
+        cygwin=true
     ;;
-  Darwin* )
-    darwin=true
+    Darwin* )
+        darwin=true
     ;;
-  MINGW* )
-    msys=true
+    MINGW* )
+        msys=true
     ;;
-  NONSTOP* )
-    nonstop=true
+    NONSTOP* )
+        nonstop=true
     ;;
 esac
 
@@ -94,14 +94,14 @@ if [ -n "$JAVA_HOME" ] ; then
         die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
 
 Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
+        location of your Java installation."
     fi
 else
     JAVACMD="java"
     which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
 
 Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
+    location of your Java installation."
 fi
 
 # Increase the maximum file descriptors if we can.
@@ -130,7 +130,7 @@ if $cygwin ; then
     APP_HOME=`cygpath --path --mixed "$APP_HOME"`
     CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
     JAVACMD=`cygpath --unix "$JAVACMD"`
-
+    
     # We build the pattern for arguments to be converted via cygpath
     ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
     SEP=""
@@ -148,7 +148,7 @@ if $cygwin ; then
     for arg in "$@" ; do
         CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
         CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
-
+        
         if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
             eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
         else
@@ -157,17 +157,17 @@ if $cygwin ; then
         i=$((i+1))
     done
     case $i in
-        (0) set -- ;;
-        (1) set -- "$args0" ;;
-        (2) set -- "$args0" "$args1" ;;
-        (3) set -- "$args0" "$args1" "$args2" ;;
-        (4) set -- "$args0" "$args1" "$args2" "$args3" ;;
-        (5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
-        (6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
-        (7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
-        (8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
-        (9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
-    esac
+    (0) set -- ;;
+(1) set -- "$args0" ;;
+(2) set -- "$args0" "$args1" ;;
+(3) set -- "$args0" "$args1" "$args2" ;;
+(4) set -- "$args0" "$args1" "$args2" "$args3" ;;
+(5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
+(6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
+(7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
+(8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
+(9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+esac
 fi
 
 # Escape application args
@@ -182,7 +182,7 @@ eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$A
 
 # by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
 if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ]; then
-  cd "$(dirname "$0")"
+    cd "$(dirname "$0")"
 fi
 
 exec "$JAVACMD" "$@"

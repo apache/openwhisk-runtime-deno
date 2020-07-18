@@ -15,9 +15,9 @@
 # limitations under the License.
 #
 
-IMG=satyarohith/ow-deno
+IMG=ow-deno
 INVOKE=python3 ../tools/invoke.py
-PREFIX=docker.io/openwhisk
+PREFIX=satyarohith
 
 build:
 	docker build -t $(IMG) .
