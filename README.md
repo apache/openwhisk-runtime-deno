@@ -26,3 +26,54 @@ This repository contains sources files needed to build the Deno
 runtimes for Apache OpenWhisk. The build system will produce an Docker
 image for each runtime version. These images are used in the platform
 to execute Deno actions.
+
+Try it out using Docker image:
+
+```sh
+wsk action create hello main.ts --docker=openwhisk/action-deno-1.3.0
+```
+
+The content of the `main.ts` is shown below.
+```ts
+export default (args: any) => {
+  return {
+    message: `Hello, ${args.name || 'World'}!`
+  }
+}
+```
+
+## Development
+
+A Dockerfile for each runtime image is defined in its respective
+runtime version directory. Modify this file if you need to add extra
+dependencies to a runtime version.
+
+### Build
+
+- Run the `distDocker` command to generate local Docker images for the different runtime versions.
+
+```
+./gradlew distDocker
+```
+
+### Test
+
+1. Build the local Docker images for the Deno runtime (see the instructions above).
+
+2. Install project dependencies from the top-level Apache OpenWhisk
+[project](https://github.com/apache/openwhisk), which ensures correct
+versions of dependent libraries are available in the Maven cache.
+
+```
+./gradlew install
+```
+
+*This command **MUST BE** run from the directory containing the main
+ Apache OpenWhisk [repository](https://github.com/apache/openwhisk),
+ not this repository's directory.*
+
+3. Run the project tests.
+
+```
+./gradlew :tests:test
+```
