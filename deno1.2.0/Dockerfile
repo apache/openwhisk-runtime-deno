@@ -19,6 +19,10 @@ FROM hayd/alpine-deno
 RUN mkdir -p /proxy/bin /proxy/lib /proxy/action
 WORKDIR /proxy
 COPY --from=builder bin/proxy /bin/proxy
+# Cache the dependencies.
+COPY deps.js /proxy/deps.js
+RUN deno cache --unstable --quiet deps.js
+
 ADD lib/launcher.js /proxy/lib/launcher.js
 ADD bin/compile /proxy/bin/compile
 ADD bin/compile.js /proxy/bin/compile.js
