@@ -23,9 +23,9 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class ActionLoopPythonBasicTests extends BasicActionRunnerTests with WskActorSystem {
+class ActionLoopDenoBasicTests extends BasicActionRunnerTests with WskActorSystem {
 
-  val image = "ow-deno"
+  val image = "actionloop-deno-v1.2.0"
 
   override def withActionContainer(env: Map[String, String] = Map.empty)(code: ActionContainer => Unit) = {
     withContainer(image, env)(code)
@@ -40,29 +40,29 @@ class ActionLoopPythonBasicTests extends BasicActionRunnerTests with WskActorSys
 
   override val testNotReturningJson =
     TestConfig("""
-    |export default (args: unknown) => {
-    |  return "this is not json"
+    |export default (args: any) => {
+    |  return "this is not json";
     |};
     """.stripMargin)
 
   override val testEcho = TestConfig("""
-    |export default (args: unknown) => {
+    |export default (args: any) => {
     |  console.error('hello stderr');
-    |  console.error('hello stdout');
+    |  console.log('hello stdout');
     |  return args;
     |}
     """.stripMargin)
 
   override val testUnicode = TestConfig("""
-       |export default (args: unknown) => {
-       |  const msg = args.delimiter + " ☃ " + args.delimiter;
-       |  console.log(msg)
-       |  return { "winter": msg }
+       |export default (args: any) => {
+       |  const msg = args!.delimiter + " ☃ " + args!.delimiter;
+       |  console.log(msg);
+       |  return { "winter": msg };
        |}
     """.stripMargin)
 
   override val testEnv = TestConfig("""
-       |export default (args: unknown) => {
+       |export default (args: any) => {
        |  return {
        |    "api_host":      Deno.env.get["__OW_API_HOST"],
        |    "api_key":       Deno.env.get["__OW_API_KEY"],
@@ -70,25 +70,25 @@ class ActionLoopPythonBasicTests extends BasicActionRunnerTests with WskActorSys
        |    "activation_id": Deno.env.get["__OW_ACTIVATION_ID"],
        |    "action_name":   Deno.env.get["__OW_ACTION_NAME"],
        |    "deadline":      Deno.env.get["__OW_DEADLINE"]
-       |  }
+       |  };
        |}
     """.stripMargin)
 
-  override val testInitCannotBeCalledMoreThanOnce = TestConfig(s"""|export default (args: unknown) => {
-       |  return args
+  override val testInitCannotBeCalledMoreThanOnce = TestConfig(s"""|export default (args: any) => {
+       |  return args;
        |}
     """.stripMargin)
 
   override val testEntryPointOtherThanMain = TestConfig(
-    s"""|export default (args: unknown) => {
-        |  return args
+    s"""|export default (args: any) => {
+        |  return args;
         |}
     """.stripMargin,
     main = "niam")
 
   override val testLargeInput = TestConfig(s"""
-       |export default (args: unknown) => {
-       |  return args
+       |export default (args: any) => {
+       |  return args;
        |}
     """.stripMargin)
 }

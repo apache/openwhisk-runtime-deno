@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-IMG=ow-deno
+IMG=actionloop-deno-v1.2.0
 INVOKE=python3 ../tools/invoke.py
 PREFIX=satyarohith
 
@@ -40,7 +40,7 @@ debug: build
 
 ## You need to execute make start in another terminal
 test-single:
-	$(INVOKE) init hello ../ow_bundle.js
+	$(INVOKE) init hello ../example/main.ts
 	$(INVOKE) run '{}'
 	$(INVOKE) run '{"name":"Mike"}'
 

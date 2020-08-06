@@ -21,6 +21,6 @@ WORKDIR /proxy
 COPY --from=builder bin/proxy /bin/proxy
 ADD lib/launcher.js /proxy/lib/launcher.js
 ADD bin/compile /proxy/bin/compile
-RUN apk update && apk add python3
+ADD bin/compile.js /proxy/bin/compile.js
 ENV OW_COMPILER=/proxy/bin/compile
 ENTRYPOINT ["/bin/proxy"]
