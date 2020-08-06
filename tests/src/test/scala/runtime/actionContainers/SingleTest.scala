@@ -25,7 +25,7 @@ import spray.json.{JsonParser}
 
 @RunWith(classOf[JUnitRunner])
 class SingleTest extends ActionProxyContainerTestUtils with WskActorSystem {
-  lazy val imageName = "ow-deno"
+  lazy val imageName = "actionloop-deno-v1.2.0"
 
   def withActionContainer(env: Map[String, String] = Map.empty)(code: ActionContainer => Unit) = {
     withContainer(imageName, env)(code)
@@ -34,7 +34,7 @@ class SingleTest extends ActionProxyContainerTestUtils with WskActorSystem {
   behavior of imageName
 
   val code =
-    """|export default (args: unknown) => {
+    """|export default (args: any) => {
        |   console.log("hello stdout");
        |   console.error("hello stderr")
        |   return args
