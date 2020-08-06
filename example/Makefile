@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-IMG=ow-deno
+IMG=actionloop-deno-v1.2.0
 ACT=hello-deno
 PREFIX=satyarohith
 
