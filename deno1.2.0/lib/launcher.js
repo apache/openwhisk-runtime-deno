@@ -39,8 +39,8 @@ for await (const line of readLines(Deno.stdin)) {
     };
   }
 
-  await Deno.write(
-    output.rid,
+  await Deno.writeAll(
+    output,
     new TextEncoder().encode(JSON.stringify(response) + '\n')
   );
 }
