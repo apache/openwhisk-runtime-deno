@@ -13,12 +13,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-FROM openwhisk/actionloop-v2:latest as builder
+
+FROM golang:1.12 AS builder_source
+RUN env CGO_ENABLED=0 go get github.com/apache/openwhisk-runtime-go/main && mv /go/bin/main /bin/proxy
+
 FROM hayd/alpine-deno
 RUN mkdir -p /proxy/bin /proxy/lib /proxy/action
 WORKDIR /proxy
-COPY --from=builder bin/proxy /bin/proxy
+RUN mkdir -p /proxy/bin /proxy/lib /proxy/action
+WORKDIR /proxy
+COPY --from=builder_source /bin/proxy /bin/proxy
 # Cache the dependencies.
 COPY deps.js /proxy/deps.js
 RUN deno cache --unstable --quiet deps.js
