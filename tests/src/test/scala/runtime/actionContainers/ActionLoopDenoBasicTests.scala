@@ -77,5 +77,9 @@ class ActionLoopDenoBasicTests extends BasicActionRunnerTests with WskActorSyste
     """.stripMargin,
     main = "niam")
 
-  override val testLargeInput = TestConfig("", skipTest = true)
+  override val testLargeInput = TestConfig(s"""
+       |export default (args: any) => {
+       |  return args;
+       |}
+    """.stripMargin)
 }
