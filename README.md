@@ -17,6 +17,20 @@
 #
 -->
 
-# OpenWhisk Deno Runtime
+# OpenWhisk Runtime for Deno
 
-WIP. 
+Try it out using docker image:
+
+```sh
+wsk action create hello-deno main.ts --docker=satyarohith/openwhisk-runtime-deno
+```
+
+The content of the `main.ts` is as bellow.
+
+```ts
+export default function main(args: {[key: string]: any}) {
+  return {
+    message: `Hello, ${args.name || 'World'}!`
+  };
+}
+```
