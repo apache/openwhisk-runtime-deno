@@ -20,15 +20,15 @@ RUN env CGO_ENABLED=0 go get github.com/apache/openwhisk-runtime-go/main && mv /
 FROM hayd/alpine-deno
 RUN mkdir -p /proxy/bin /proxy/lib /proxy/action
 WORKDIR /proxy
-RUN mkdir -p /proxy/bin /proxy/lib /proxy/action
-WORKDIR /proxy
 COPY --from=builder_source /bin/proxy /bin/proxy
-# Cache the dependencies.
-COPY deps.js /proxy/deps.js
-RUN deno cache --unstable --quiet deps.js
 
-ADD lib/launcher.js /proxy/lib/launcher.js
-ADD bin/compile /proxy/bin/compile
-ADD bin/compile.js /proxy/bin/compile.js
+COPY deps.js /proxy/deps.js
+COPY lib/launcher.js /proxy/lib/launcher.js
+COPY bin/compile.js /proxy/bin/compile.js
+COPY bin/compile /proxy/bin/compile
+
+RUN deno bundle --unstable /proxy/lib/launcher.js /proxy/lib/launcher.js
+RUN deno bundle --unstable /proxy/bin/compile.js /proxy/bin/compile.js 
+
 ENV OW_COMPILER=/proxy/bin/compile
 ENTRYPOINT ["/bin/proxy"]
