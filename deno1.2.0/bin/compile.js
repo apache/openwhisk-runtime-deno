@@ -35,7 +35,10 @@ try {
         join(srcDir, 'ow_bundle.js')
       ],
       stderr: 'piped',
-      stdout: 'piped'
+      stdout: 'piped',
+      env: {
+        NO_COLOR: 'true'
+      }
     });
 
     const {code} = await process.status();
@@ -49,7 +52,7 @@ try {
   // create /exec file
   const execContent = `#!/bin/sh
 cd "$(dirname $0)"
-exec /bin/deno run --unstable -A -q launcher.js`;
+exec env NO_COLOR=true /bin/deno run --unstable -A -q launcher.js`;
 
   // copy launcher.js
   await Deno.copyFile(
