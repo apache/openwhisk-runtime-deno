@@ -56,11 +56,6 @@ exec /bin/deno run --unstable -A -q launcher.js`;
     join(dirname(fromFileUrl(import.meta.url)), '..', 'lib', 'launcher.js'),
     join(srcDir, 'launcher.js')
   );
-  // copy deps.js
-  await Deno.copyFile(
-    join(dirname(fromFileUrl(import.meta.url)), '..', 'deps.js'),
-    join(srcDir, '..', 'deps.js')
-  );
   await Deno.writeTextFile(execPath, execContent);
   // change permissions
   await Deno.chmod(execPath, 0o777);
