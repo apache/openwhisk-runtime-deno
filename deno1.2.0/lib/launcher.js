@@ -17,8 +17,9 @@ for await (const line of readLines(Deno.stdin)) {
       }
     }
 
-    if (await exists('./ow_bundle.js')) {
-      const {default: main} = await import('./ow_bundle.js');
+    const sourceCode = './ow_bundle.js';
+    if (await exists(sourceCode)) {
+      const {default: main} = await import(sourceCode);
       response = await main(payload);
       if (Object.prototype.toString.call(response) !== '[object Object]') {
         response = {
