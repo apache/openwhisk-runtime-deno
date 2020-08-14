@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-IMG=actionloop-deno-v1.2.0
+IMG=actionloop-deno-v1.3.0
 INVOKE=python3 ../tools/invoke.py
 PREFIX=satyarohith
 

@@ -16,7 +16,7 @@
  */
 
 include 'tests'
-include 'deno1.2.0'
+include 'deno1.3.0'
 
 rootProject.name = 'openwhisk-runtime-deno'
 

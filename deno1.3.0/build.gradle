@@ -15,5 +15,5 @@
  * limitations under the License.
  */
 
-ext.dockerImageName = 'actionloop-deno-v1.2.0'
+ext.dockerImageName = 'actionloop-deno-v1.3.0'
 apply from: '../gradle/docker.gradle'
