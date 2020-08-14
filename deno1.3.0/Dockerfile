@@ -17,7 +17,7 @@
 FROM golang:1.12 AS builder_source
 RUN env CGO_ENABLED=0 go get github.com/apache/openwhisk-runtime-go/main && mv /go/bin/main /bin/proxy
 
-FROM hayd/alpine-deno
+FROM hayd/alpine-deno:1.3.0
 RUN mkdir -p /proxy/bin /proxy/lib /proxy/action
 WORKDIR /proxy
 COPY --from=builder_source /bin/proxy /bin/proxy
