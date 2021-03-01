@@ -15,9 +15,9 @@
 # limitations under the License.
 #
 
-IMG=actionloop-deno-v1.3.0
-INVOKE=python3 ../tools/invoke.py
-PREFIX=satyarohith
+IMG=action-deno-v1.3.0
+INVOKE=python3 ../../openwhisk/tools/actionProxy/invoke.py
+PREFIX=whisk
 
 build:
 	docker build -t $(IMG) .
