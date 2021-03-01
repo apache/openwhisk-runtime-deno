@@ -15,9 +15,9 @@
 # limitations under the License.
 #
 
-IMG=actionloop-deno-v1.3.0
+IMG=action-deno-v1.3.0
 ACT=hello-deno
-PREFIX=satyarohith
+PREFIX=whisk
 
 src.zip: main.ts
 	zip src.zip main.ts
