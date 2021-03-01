@@ -29,14 +29,14 @@ script:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: "./tools/travis/publish.sh nimbella deno1.3.0 ${TRAVIS_TAG}"
+  script: "./tools/travis/publish.sh openwhisk deno1.3.0 ${TRAVIS_TAG}"
   on:
     tags: true
     all_branches: true
-    repo: nimbella-corp/openwhisk-runtime-deno
+    repo: apache/openwhisk-runtime-deno
 - provider: script
   skip_cleanup: true
-  script: "./tools/travis/publish.sh nimbella deno1.3.0 nightly"
+  script: "./tools/travis/publish.sh openwhisk deno1.3.0 nightly"
   on:
     branch: dev
-    repo: nimbella-corp/openwhisk-runtime-deno
+    repo: apache/openwhisk-runtime-deno
