@@ -1,3 +1,4 @@
+<!--
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -14,36 +15,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+-->
 
-github:
-  description: "Apache OpenWhisk Runtime Deno supports Apache OpenWhisk functions written in Deno"
-  homepage: https://openwhisk.apache.org
+# Apache OpenWhisk Runtime for Deno
 
-  labels:
-  - openwhisk
-  - apache
-  - serverless
-  - faas
-  - functions-as-a-service
-  - cloud
-  - serverless-architectures
-  - serverless-functions
-  - docker
-  - functions
-  - openwhisk-runtime
-  - typescript
-  - deno
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Build Status](https://travis-ci.com/apache/openwhisk-runtime-deno.svg?branch=master)](https://travis-ci.com/apache/openwhisk-runtime-deno)
 
-  features:
-    wiki: true
-    issues: true
-
-  enabled_merge_buttons:
-    squash:  true
-    merge:   false
-    rebase:  false
-
-  notifications:
-    commits:      commits@openwhisk.apache.org
-    issues:       issues@openwhisk.apache.org
-    pullrequests: issues@openwhisk.apache.org
+This repository contains sources files needed to build the Deno
+runtimes for Apache OpenWhisk. The build system will produce an Docker
+image for each runtime version. These images are used in the platform
+to execute Deno actions.

@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -15,35 +16,33 @@
 # limitations under the License.
 #
 
-github:
-  description: "Apache OpenWhisk Runtime Deno supports Apache OpenWhisk functions written in Deno"
-  homepage: https://openwhisk.apache.org
+set -eux
 
-  labels:
-  - openwhisk
-  - apache
-  - serverless
-  - faas
-  - functions-as-a-service
-  - cloud
-  - serverless-architectures
-  - serverless-functions
-  - docker
-  - functions
-  - openwhisk-runtime
-  - typescript
-  - deno
+# Build script for Travis-CI.
 
-  features:
-    wiki: true
-    issues: true
+IMAGE_PREFIX=$1
+RUNTIME=$2
+IMAGE_TAG=$3
 
-  enabled_merge_buttons:
-    squash:  true
-    merge:   false
-    rebase:  false
+if [[ ! -z ${DOCKER_USER} ]] && [[ ! -z ${DOCKER_PASSWORD} ]]; then
+docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWORD}"
+fi
 
-  notifications:
-    commits:      commits@openwhisk.apache.org
-    issues:       issues@openwhisk.apache.org
-    pullrequests: issues@openwhisk.apache.org
+if [[ ! -z ${RUNTIME} ]]; then
+TERM=dumb ./gradlew \
+core:${RUNTIME}:distDocker \
+-PdockerRegistry=docker.io \
+-PdockerImagePrefix=${IMAGE_PREFIX} \
+-PdockerImageTag=${IMAGE_TAG}
+
+  # if doing nightly also push a tag with the hash commit
+  if [ ${IMAGE_TAG} == "nightly" ]; then
+  SHORT_COMMIT=`git rev-parse --short HEAD`
+  TERM=dumb ./gradlew \
+  core:${RUNTIME}:distDocker \
+  -PdockerRegistry=docker.io \
+  -PdockerImagePrefix=${IMAGE_PREFIX} \
+  -PdockerImageTag=${SHORT_COMMIT}
+  fi
+
+fi

@@ -15,35 +15,13 @@
 # limitations under the License.
 #
 
-github:
-  description: "Apache OpenWhisk Runtime Deno supports Apache OpenWhisk functions written in Deno"
-  homepage: https://openwhisk.apache.org
+sudo: required
+services:
+- docker
 
-  labels:
-  - openwhisk
-  - apache
-  - serverless
-  - faas
-  - functions-as-a-service
-  - cloud
-  - serverless-architectures
-  - serverless-functions
-  - docker
-  - functions
-  - openwhisk-runtime
-  - typescript
-  - deno
+before_install:
+- "./tools/travis/setup.sh"
 
-  features:
-    wiki: true
-    issues: true
-
-  enabled_merge_buttons:
-    squash:  true
-    merge:   false
-    rebase:  false
-
-  notifications:
-    commits:      commits@openwhisk.apache.org
-    issues:       issues@openwhisk.apache.org
-    pullrequests: issues@openwhisk.apache.org
+install: true
+script:
+- "./tools/travis/scan.sh && ./tools/travis/build.sh && ./tools/travis/test.sh"

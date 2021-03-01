@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -15,35 +16,19 @@
 # limitations under the License.
 #
 
-github:
-  description: "Apache OpenWhisk Runtime Deno supports Apache OpenWhisk functions written in Deno"
-  homepage: https://openwhisk.apache.org
+set -e
 
-  labels:
-  - openwhisk
-  - apache
-  - serverless
-  - faas
-  - functions-as-a-service
-  - cloud
-  - serverless-architectures
-  - serverless-functions
-  - docker
-  - functions
-  - openwhisk-runtime
-  - typescript
-  - deno
+# Build script for Travis-CI.
 
-  features:
-    wiki: true
-    issues: true
+SCRIPTDIR=$(cd $(dirname "$0") && pwd)
+ROOTDIR="$SCRIPTDIR/../.."
+HOMEDIR="$SCRIPTDIR/../../../"
 
-  enabled_merge_buttons:
-    squash:  true
-    merge:   false
-    rebase:  false
+# clone OpenWhisk utilities repo. in order to run scanCode
+cd $HOMEDIR
+git clone https://github.com/apache/openwhisk-utilities.git
 
-  notifications:
-    commits:      commits@openwhisk.apache.org
-    issues:       issues@openwhisk.apache.org
-    pullrequests: issues@openwhisk.apache.org
+# clone main openwhisk repo. for testing purposes
+git clone --depth=1 https://github.com/apache/openwhisk.git openwhisk
+cd openwhisk
+./tools/travis/setup.sh

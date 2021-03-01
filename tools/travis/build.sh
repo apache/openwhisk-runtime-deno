@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -15,35 +16,24 @@
 # limitations under the License.
 #
 
-github:
-  description: "Apache OpenWhisk Runtime Deno supports Apache OpenWhisk functions written in Deno"
-  homepage: https://openwhisk.apache.org
+set -ex
 
-  labels:
-  - openwhisk
-  - apache
-  - serverless
-  - faas
-  - functions-as-a-service
-  - cloud
-  - serverless-architectures
-  - serverless-functions
-  - docker
-  - functions
-  - openwhisk-runtime
-  - typescript
-  - deno
+# Build script for Travis-CI.
 
-  features:
-    wiki: true
-    issues: true
+SCRIPTDIR=$(cd $(dirname "$0") && pwd)
+ROOTDIR="$SCRIPTDIR/../.."
+WHISKDIR="$ROOTDIR/../openwhisk"
+UTILDIR="$ROOTDIR/../openwhisk-utilities"
 
-  enabled_merge_buttons:
-    squash:  true
-    merge:   false
-    rebase:  false
+export OPENWHISK_HOME=$WHISKDIR
 
-  notifications:
-    commits:      commits@openwhisk.apache.org
-    issues:       issues@openwhisk.apache.org
-    pullrequests: issues@openwhisk.apache.org
+# run scancode using the ASF Release configuration
+cd $UTILDIR
+scancode/scanCode.py --config scancode/ASF-Release.cfg $ROOTDIR
+
+# Build OpenWhisk deps before we run tests
+cd $WHISKDIR
+TERM=dumb ./gradlew install
+# Mock file (works around bug upstream)
+echo "openwhisk.home=$WHISKDIR" > whisk.properties
+echo "vcap.services.file=" >> whisk.properties
