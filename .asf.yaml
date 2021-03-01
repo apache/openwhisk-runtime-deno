@@ -45,6 +45,5 @@ github:
 
   notifications:
     commits:      commits@openwhisk.apache.org
-    issues:       issues@openwhisk.apache.org 
+    issues:       issues@openwhisk.apache.org
     pullrequests: issues@openwhisk.apache.org
- 
