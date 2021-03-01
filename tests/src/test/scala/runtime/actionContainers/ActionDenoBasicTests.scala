@@ -38,24 +38,23 @@ class ActionDenoBasicTests extends BasicActionRunnerTests with WskActorSystem {
 
   override val testNoSourceOrExec = TestConfig("")
 
-  override val testNotReturningJson =
-    TestConfig(
-      """
-    |export default (args: any) => {
-    |  return "this is not json";
-    |};
+  override val testNotReturningJson = TestConfig(
+    s"""
+       |export default (args: any) => {
+       |  return "this is not json";
+       |}
     """.stripMargin,
-      skipTest = true)
+    skipTest = true)
 
-  override val testEcho = TestConfig("""
-    |export default (args: any) => {
-    |  console.error('hello stderr');
-    |  console.log('hello stdout');
-    |  return args;
-    |}
+  override val testEcho = TestConfig(s"""
+       |export default (args: any) => {
+       |  console.error('hello stderr');
+       |  console.log('hello stdout');
+       |  return args;
+       |}
     """.stripMargin)
 
-  override val testUnicode = TestConfig("""
+  override val testUnicode = TestConfig(s"""
        |export default (args: any) => {
        |  const msg = args!.delimiter + " ☃ " + args!.delimiter;
        |  console.log(msg);
@@ -63,17 +62,46 @@ class ActionDenoBasicTests extends BasicActionRunnerTests with WskActorSystem {
        |}
     """.stripMargin)
 
-  override val testEnv = TestConfig("", skipTest = true)
+  override val testEnv = TestConfig(s"""
+       |export default (args: any) => {
+       |  const env = Deno.env.toObject();
+       |  return {
+       |    "api_host": env['__OW_API_HOST'],
+       |    "api_key": env['__OW_API_KEY'],
+       |    "namespace": env['__OW_NAMESPACE'],
+       |    "action_name": env['__OW_ACTION_NAME'],
+       |    "action_version": env['__OW_ACTION_VERSION'],
+       |    "activation_id": env['__OW_ACTIVATION_ID'],
+       |    "deadline": env['__OW_DEADLINE']
+       |  }
+       |}
+    """.stripMargin.trim)
 
-  override val testInitCannotBeCalledMoreThanOnce = TestConfig(s"""|export default (args: any) => {
+  // the environment variables are ready at load time to ensure
+  // variables are already available in the runtime
+  override val testEnvParameters = TestConfig(s"""
+       |const env = Deno.env.toObject();
+       |const envargs = {
+       |    "SOME_VAR": env.SOME_VAR,
+       |    "ANOTHER_VAR": env.ANOTHER_VAR
+       |}
+       |
+       |export default (args: any) => {
+       |  return envargs
+       |}
+     """.stripMargin.trim)
+
+  override val testInitCannotBeCalledMoreThanOnce = TestConfig(s"""
+       |export default (args: any) => {
        |  return args;
        |}
     """.stripMargin)
 
   override val testEntryPointOtherThanMain = TestConfig(
-    s"""|export default (args: any) => {
-        |  return args;
-        |}
+    s"""
+       |export default (args: any) => {
+       |  return args;
+       |}
     """.stripMargin,
     main = "niam")
 

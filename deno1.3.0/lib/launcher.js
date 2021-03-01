@@ -30,7 +30,7 @@ for await (const line of readLines(Deno.stdin)) {
         payload = value;
       } else {
         // set the env variables
-        Deno.env.set(key, '__OW_' + value.toUpperCase());
+        Deno.env.set('__OW_' + key.toUpperCase(), value);
       }
     }
 
