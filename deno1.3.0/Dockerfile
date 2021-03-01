@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 FROM golang:1.12 AS builder_source
 RUN env CGO_ENABLED=0 go get github.com/apache/openwhisk-runtime-go/main && mv /go/bin/main /bin/proxy
@@ -28,7 +29,7 @@ COPY bin/compile.js /proxy/bin/compile.js
 COPY bin/compile /proxy/bin/compile
 
 RUN deno bundle --unstable /proxy/lib/launcher.js /proxy/lib/launcher.js
-RUN deno bundle --unstable /proxy/bin/compile.js /proxy/bin/compile.js 
+RUN deno bundle --unstable /proxy/bin/compile.js /proxy/bin/compile.js
 
 ENV OW_COMPILER=/proxy/bin/compile
 ENTRYPOINT ["/bin/proxy"]
