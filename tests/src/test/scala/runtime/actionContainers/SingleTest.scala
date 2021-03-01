@@ -25,7 +25,7 @@ import spray.json.{JsonParser}
 
 @RunWith(classOf[JUnitRunner])
 class SingleTest extends ActionProxyContainerTestUtils with WskActorSystem {
-  lazy val imageName = "actionloop-deno-v1.3.0"
+  lazy val imageName = "action-deno-v1.3.0"
 
   def withActionContainer(env: Map[String, String] = Map.empty)(code: ActionContainer => Unit) = {
     withContainer(imageName, env)(code)
@@ -41,7 +41,7 @@ class SingleTest extends ActionProxyContainerTestUtils with WskActorSystem {
        |}
        |""".stripMargin
 
-  val data = JsonParser("""{"name":"Mike"}""")
+  val data = JsonParser("""{"name":"Jane"}""")
 
   it should "return an echo of the input" in {
     val (out, err) = withActionContainer() { c =>

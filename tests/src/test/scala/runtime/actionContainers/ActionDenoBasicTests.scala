@@ -23,15 +23,15 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class ActionLoopDenoBasicTests extends BasicActionRunnerTests with WskActorSystem {
+class ActionDenoBasicTests extends BasicActionRunnerTests with WskActorSystem {
 
-  val image = "actionloop-deno-v1.3.0"
+  val image = "action-deno-v1.3.0"
 
   override def withActionContainer(env: Map[String, String] = Map.empty)(code: ActionContainer => Unit) = {
     withContainer(image, env)(code)
   }
 
-  def withActionLoopContainer(code: ActionContainer => Unit) =
+  def withActionContainer(code: ActionContainer => Unit) =
     withContainer(image)(code)
 
   behavior of image

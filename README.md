@@ -22,11 +22,10 @@
 Try it out using docker image:
 
 ```sh
-wsk action create hello-deno main.ts --docker=satyarohith/openwhisk-runtime-deno
+wsk action create hello main.ts --docker=openwhisk/action-deno-1.3.0
 ```
 
-The content of the `main.ts` is as bellow.
-
+The content of the `main.ts` is shown below.
 ```ts
 export default function main(args: {[key: string]: any}) {
   return {
