@@ -16,33 +16,15 @@
 # limitations under the License.
 #
 
-set -eux
+set -ex
 
 # Build script for Travis-CI.
 
-IMAGE_PREFIX=$1
-RUNTIME=$2
-IMAGE_TAG=$3
+SCRIPTDIR=$(cd $(dirname "$0") && pwd)
+ROOTDIR="$SCRIPTDIR/../.."
+UTILDIR="$ROOTDIR/../openwhisk-utilities"
 
-if [[ ! -z ${DOCKER_USER} ]] && [[ ! -z ${DOCKER_PASSWORD} ]]; then
-docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWORD}"
-fi
-
-if [[ ! -z ${RUNTIME} ]]; then
-TERM=dumb ./gradlew \
-core:${RUNTIME}:distDocker \
--PdockerRegistry=docker.io \
--PdockerImagePrefix=${IMAGE_PREFIX} \
--PdockerImageTag=${IMAGE_TAG}
-
-  # if doing nightly also push a tag with the hash commit
-  if [ ${IMAGE_TAG} == "nightly" ]; then
-  SHORT_COMMIT=`git rev-parse --short HEAD`
-  TERM=dumb ./gradlew \
-  core:${RUNTIME}:distDocker \
-  -PdockerRegistry=docker.io \
-  -PdockerImagePrefix=${IMAGE_PREFIX} \
-  -PdockerImageTag=${SHORT_COMMIT}
-  fi
-
-fi
+# run scancode using the ASF Release configuration
+pushd $UTILDIR
+scancode/scanCode.py --config scancode/ASF-Release.cfg $ROOTDIR
+popd
