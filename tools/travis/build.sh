@@ -37,3 +37,7 @@ TERM=dumb ./gradlew install
 # Mock file (works around bug upstream)
 echo "openwhisk.home=$WHISKDIR" > whisk.properties
 echo "vcap.services.file=" >> whisk.properties
+
+# Build runtime
+cd $ROOTDIR
+TERM=dumb ./gradlew distDocker
