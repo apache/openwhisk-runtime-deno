@@ -35,6 +35,11 @@ github:
   - deno
 
   protected_branches:
+    master:
+      required_status_checks:
+        strict: false
+      required_pull_request_reviews:
+        required_appoving_review_count: 1
 
   features:
     wiki: true
