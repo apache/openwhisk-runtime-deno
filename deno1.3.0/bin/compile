@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -16,16 +16,5 @@
 # limitations under the License.
 #
 
-set -ex
-
-# Build script for Travis-CI.
-
-SCRIPTDIR=$(cd $(dirname "$0") && pwd)
-ROOTDIR="$SCRIPTDIR/../.."
-WHISKDIR="$ROOTDIR/../openwhisk"
-
-export OPENWHISK_HOME=$WHISKDIR
-cd ${ROOTDIR}
-
-TERM=dumb ./gradlew :tests:checkScalafmtAll
-TERM=dumb ./gradlew :tests:test
+cd "$(dirname $0)"
+exec env NO_COLOR=true /bin/deno run -A --unstable -q compile.js "$@"

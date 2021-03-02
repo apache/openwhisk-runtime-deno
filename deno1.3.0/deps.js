@@ -15,22 +15,10 @@
  * limitations under the License.
  */
 
-include 'tests'
-include 'deno1.3.0'
-
-rootProject.name = 'openwhisk-runtime-deno'
-
-gradle.ext.openwhisk = [
-        version: '1.0.0-SNAPSHOT'
-]
-
-gradle.ext.scala = [
-    version: '2.11.8',
-    compileFlags: ['-feature', '-unchecked', '-deprecation', '-Xfatal-warnings', '-Ywarn-unused-import']
-]
-
-gradle.ext.scalafmt = [
-    version: '1.5.0',
-    config: new File(rootProject.projectDir, '.scalafmt.conf')
-]
-
+export {move, exists} from 'https://deno.land/std@0.63.0/fs/mod.ts';
+export {readLines} from 'https://deno.land/std@0.63.0/io/bufio.ts';
+export {
+  join,
+  fromFileUrl,
+  dirname
+} from 'https://deno.land/std@0.63.0/path/mod.ts';

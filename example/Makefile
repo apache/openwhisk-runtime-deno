@@ -1,4 +1,3 @@
-#!/bin/bash
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -16,16 +15,30 @@
 # limitations under the License.
 #
 
-set -ex
+IMG=action-deno-v1.3.0
+ACT=hello-deno
+PREFIX=whisk
 
-# Build script for Travis-CI.
+src.zip: main.ts
+	zip src.zip main.ts
 
-SCRIPTDIR=$(cd $(dirname "$0") && pwd)
-ROOTDIR="$SCRIPTDIR/../.."
-WHISKDIR="$ROOTDIR/../openwhisk"
+bin.zip: src.zip
+	docker run -i $(IMG) -compile main <src.zip >bin.zip
 
-export OPENWHISK_HOME=$WHISKDIR
-cd ${ROOTDIR}
+test-single:
+	wsk action update $(ACT) main.ts --docker $(PREFIX)/$(IMG)
+	wsk action invoke $(ACT) -r
+	wsk action invoke $(ACT) -p name Mike -r
 
-TERM=dumb ./gradlew :tests:checkScalafmtAll
-TERM=dumb ./gradlew :tests:test
+test-src-zip: src.zip
+	wsk action update $(ACT) $< --docker $(PREFIX)/$(IMG)
+	wsk action invoke $(ACT) -r
+	wsk action invoke $(ACT) -p name Mike -r
+
+test-bin-zip: bin.zip
+	wsk action update $(ACT) $< --docker $(PREFIX)/$(IMG)
+	wsk action invoke $(ACT) -r
+	wsk action invoke $(ACT) -p name Mike -r
+
+.PHONE: test-single test-src-zip test-bin-zip
+

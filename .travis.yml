@@ -25,3 +25,18 @@ before_install:
 install: true
 script:
 - "./tools/travis/scan.sh && ./tools/travis/build.sh && ./tools/travis/test.sh"
+
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: "./tools/travis/publish.sh openwhisk deno1.3.0 ${TRAVIS_TAG}"
+  on:
+    tags: true
+    all_branches: true
+    repo: apache/openwhisk-runtime-deno
+- provider: script
+  skip_cleanup: true
+  script: "./tools/travis/publish.sh openwhisk deno1.3.0 nightly"
+  on:
+    branch: dev
+    repo: apache/openwhisk-runtime-deno
