@@ -34,6 +34,8 @@ github:
   - typescript
   - deno
 
+  protected_branches:
+
   features:
     wiki: true
     issues: true
