@@ -43,7 +43,9 @@ github:
     merge:   false
     rebase:  false
 
-  notifications:
-    commits:      commits@openwhisk.apache.org
-    issues:       issues@openwhisk.apache.org
-    pullrequests: issues@openwhisk.apache.org
+notifications:
+  commits: commits@openwhisk.apache.org
+  issues_status: issues@openwhisk.apache.org
+  issues_comment: issues@openwhisk.apache.org
+  pullrequests_status: issues@openwhisk.apache.org
+  pullrequests_comment: issues@openwhisk.apache.org
