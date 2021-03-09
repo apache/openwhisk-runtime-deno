@@ -23,7 +23,7 @@
 [![Build Status](https://travis-ci.com/apache/openwhisk-runtime-deno.svg?branch=master)](https://travis-ci.com/apache/openwhisk-runtime-deno)
 
 This repository contains sources files needed to build the Deno
-runtimes for Apache OpenWhisk. The build system will produce an Docker
+runtimes for Apache OpenWhisk. The build system will produce a Docker
 image for each runtime version. These images are used in the platform
 to execute Deno actions.
 
