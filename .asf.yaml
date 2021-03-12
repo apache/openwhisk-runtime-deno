@@ -18,40 +18,36 @@
 github:
   description: "Apache OpenWhisk Runtime Deno supports Apache OpenWhisk functions written in Deno"
   homepage: https://openwhisk.apache.org
-
   labels:
-  - openwhisk
-  - apache
-  - serverless
-  - faas
-  - functions-as-a-service
-  - cloud
-  - serverless-architectures
-  - serverless-functions
-  - docker
-  - functions
-  - openwhisk-runtime
-  - typescript
-  - deno
-
+    - openwhisk
+    - apache
+    - serverless
+    - faas
+    - functions-as-a-service
+    - cloud
+    - serverless-architectures
+    - serverless-functions
+    - docker
+    - functions
+    - openwhisk-runtime
+    - typescript
+    - deno
   protected_branches:
     master:
       required_status_checks:
         strict: false
         contexts:
-        - "Travis CI - Pull Request"
+          - "Travis CI - Pull Request"
       required_pull_request_reviews:
         required_appoving_review_count: 1
       required_signatures: false
-
   features:
     wiki: true
     issues: true
-
   enabled_merge_buttons:
-    squash:  true
-    merge:   false
-    rebase:  false
+    squash: true
+    merge: false
+    rebase: true
 
 notifications:
   commits: commits@openwhisk.apache.org
