@@ -38,8 +38,11 @@ github:
     master:
       required_status_checks:
         strict: false
+        contexts:
+        - "Travis CI - Pull Request"
       required_pull_request_reviews:
         required_appoving_review_count: 1
+      required_signatures: false
 
   features:
     wiki: true
