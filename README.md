@@ -20,7 +20,7 @@
 # Apache OpenWhisk Runtime for Deno
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Build Status](https://travis-ci.com/apache/openwhisk-runtime-deno.svg?branch=master)](https://travis-ci.com/apache/openwhisk-runtime-deno)
+[![Build Status](https://travis-ci.com/apache/openwhisk-runtime-deno.svg?branch=master)](https://travis-ci.com/github/apache/openwhisk-runtime-deno)
 
 This repository contains sources files needed to build the Deno
 runtimes for Apache OpenWhisk. The build system will produce a Docker
