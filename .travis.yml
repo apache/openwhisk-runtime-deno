@@ -19,6 +19,13 @@ sudo: required
 services:
 - docker
 
+notifications:
+  email: false
+  webhooks:
+    urls:
+      # travis2slack webhook to enable DMs on openwhisk-team.slack.com to PR authors with TravisCI results
+      secure: "ZKtt0UMa1uskgtOYSfFvTXyxkoEm/BNmByFgzSfnJm5sTPjfPtFe35x5/nu4tyk8QWBMBeSpyXsdOoxLOrECniWA0SjVPrR0F2wHmTCU1vHBkuBR6tHByOSl22bqmPVPaBEwXxbubBFwVBPvZ6+T+CASC3GlGDNxLm9wOA51DT8zHXM1TkBB8oU0QqiEPS71rHfDX3XsXQoq4jJqcJdLqBloZSbF+l5XD6VKAt22+Lh9kWkLRt7lUDYr3gKkwlDp5tN1AC2Suhzw9Dk5G+OGBpnEX4DTBjpDWu2m8N2Md7eIia9gfpJtOjaJR2M2H2VmllIGJfqy6IGR+TV7ihYTT221+AkaY+oAwRelP+ZQgkkNg7+EzL2+UbB4u/91db8JGxsKpO3BXsgjp22RsiDuEdejpBTQ0pAMhcJrIeQqJ4jmBAdAWLCvi4eDEXNu0uKggKHsI72SiOsh13cDiyDNG0jv7AF9myCr5H/PtCXtVnGz8sWE/js7BcWvQysKMRKsS/y4FFBWya13uzZl7kcmFrKYI9PWnwwNYzHv5idbVK61PwhysA4HzfyR/OMjyCkztKpck/cqTS6lAJs2NL8vfy4GhKfDj4HKeR370yHffmZ6sSYUpOVcCSGN8MhEp6QnY3A+DAk9gLfzlA3iVhJy83UkfGkDQVwxo4GgmYHe/Iw="
+
 before_install:
 - "./tools/travis/setup.sh"
 
