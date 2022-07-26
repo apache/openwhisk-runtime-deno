@@ -21,7 +21,7 @@ import actionContainers.{ActionContainer, ActionProxyContainerTestUtils}
 import common.WskActorSystem
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import spray.json.{JsonParser}
+import spray.json.{JsArray, JsObject, JsString, JsonParser}
 
 @RunWith(classOf[JUnitRunner])
 class SingleTest extends ActionProxyContainerTestUtils with WskActorSystem {
@@ -49,6 +49,21 @@ class SingleTest extends ActionProxyContainerTestUtils with WskActorSystem {
       initCode should be(200)
       val (runCode, runRes) = c.run(runPayload(data))
       runCode should be(200)
+    }
+  }
+
+  it should "support array result" in {
+    val helloArrayCode =
+      """|export default (args: any) => {
+         |   return ["a", "b"]
+         |}
+         |""".stripMargin
+    val (out, err) = withActionContainer() { c =>
+      val (initCode, _) = c.init(initPayload(helloArrayCode))
+      initCode should be(200)
+      val (runCode, runRes) = c.runForJsArray(JsObject())
+      runCode should be(200)
+      runRes shouldBe Some(JsArray(JsString("a"), JsString("b")))
     }
   }
 }
