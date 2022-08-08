@@ -41,6 +41,26 @@ export default (args: any) => {
   }
 }
 ```
+For the return result, not only support `dictionary` but also support `array`
+
+So a very simple `hello array` function would be:
+
+```ts
+export default (args: any) => {
+   return ["a", "b"]
+}
+```
+
+And support array result for sequence action as well, the first action's array result can be used as next action's input parameter.
+
+So the function can be:
+
+```ts
+func main(args: Any) -> Any {
+    return args
+}
+```
+When invokes above action, we can pass an array object as the input parameter.
 
 ## Development
 
