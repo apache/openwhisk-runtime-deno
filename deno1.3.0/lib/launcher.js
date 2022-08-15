@@ -38,7 +38,7 @@ for await (const line of readLines(Deno.stdin)) {
     if (await exists(sourceCode)) {
       const {default: main} = await import(sourceCode);
       response = await main(payload);
-      if (Object.prototype.toString.call(response) !== '[object Object]') {
+      if (Object.prototype.toString.call(response) !== '[object Object]' && Object.prototype.toString.call(response) !== '[object Array]') {
         response = {
           error: 'response returned by the function is not an object'
         };
